@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,6 +11,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    // Get Prisma client lazily to avoid build-time initialization
+    const prisma = await getPrismaClient()
 
     // Check if database is available
     if (!prisma || typeof prisma.user?.findUnique !== 'function') {
@@ -95,6 +98,9 @@ export async function GET(request: NextRequest) {
     if (!token) {
       return NextResponse.redirect(new URL("/auth/verify-email?error=missing_token", request.url))
     }
+
+    // Get Prisma client lazily to avoid build-time initialization
+    const prisma = await getPrismaClient()
 
     // Check if database is available
     if (!prisma || typeof prisma.user?.findFirst !== 'function') {

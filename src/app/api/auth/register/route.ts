@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 import { sendEmailVerificationEmail } from "@/lib/email"
 import crypto from "crypto"
 
@@ -22,6 +22,9 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    // Get Prisma client lazily to avoid build-time initialization
+    const prisma = await getPrismaClient()
 
     // Check if database is available
     if (!prisma || typeof prisma.user?.findUnique !== 'function') {
