@@ -1,12 +1,10 @@
 import { NextAuthOptions } from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import { prisma } from "./prisma"
 import { getPrismaClient } from "./prisma"
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as any,
+  // Remove PrismaAdapter to avoid serverless issues - handle manually
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -93,6 +91,11 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      // For credentials provider, user creation is handled in authorize function
+      // For other providers, you might need to handle user creation here
+      return true
+    },
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role
