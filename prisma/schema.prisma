@@ -1,0 +1,315 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  ON_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum DeliveryStatus {
+  SCHEDULED
+  IN_TRANSIT
+  DELIVERED
+}
+
+model User {
+  id            String   @id @default(cuid()) @map("_id")
+  email         String   @unique
+  password      String?
+  name          String?
+  phone         String?
+  role          UserRole @default(CUSTOMER)
+  emailVerified DateTime?
+  image         String?
+
+  // Password reset
+  resetToken    String?
+  resetTokenExpiry DateTime?
+
+  // Email verification
+  emailVerificationToken String?
+
+  // Wallet system
+  walletBalance Float    @default(0)
+
+  // Points system
+  points        Int      @default(0)
+
+  // Referral system
+  referralCode  String   @unique @default(cuid())
+  referredById  String?
+  referredBy    User?    @relation("UserReferrals", fields: [referredById], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  // Relationships
+  cart          Cart[]
+  orders        Order[]
+  deliveries    Delivery[]
+  referrals     User[]   @relation("UserReferrals")
+  referredReferrals Referral[] @relation("ReferrerReferrals")
+  rewards       Reward[]
+  notifications Notification[]
+  walletTransactions WalletTransaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String   @id @default(cuid()) @map("_id")
+  name        String   @unique
+  description String?
+  image       String?
+  products    Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String     @id @default(cuid()) @map("_id")
+  name        String
+  description String?
+  image       String?
+  basePrice   Float
+  stock       Int        @default(0)
+  unit        String     @default("piece")
+  inStock     Boolean    @default(true)
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  // Variations
+  variations  Variation[]
+
+  // Cart and Orders
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Variation {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String   // e.g., "Small", "Large", "Red", etc.
+  type      String   // e.g., "Size", "Color", "Weight"
+  price     Float    @default(0)
+  stock     Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // Cart and Orders
+  cartItems CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([productId, name]) // Ensure unique combination of productId and name
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cart {
+  id     String     @id @default(cuid()) @map("_id")
+  userId String
+  user   User       @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  items  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id          String    @id @default(cuid()) @map("_id")
+  cartId      String
+  cart        Cart      @relation(fields: [cartId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id])
+  variationId String?
+  variation   Variation? @relation(fields: [variationId], references: [id])
+  quantity    Int       @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              String      @id @default(cuid()) @map("_id")
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  status          OrderStatus @default(PENDING)
+  totalAmount     Float
+  deliveryFee     Float       @default(0)
+  taxAmount       Float       @default(0)
+  discountAmount  Float       @default(0)
+  finalAmount     Float
+
+  // Payment info
+  paymentMethod   String?
+  paymentStatus   String      @default("PENDING")
+  transactionId   String?
+
+  // Relationships
+  items           OrderItem[]
+  delivery        Delivery?
+  rewards         Reward[]
+  notifications   Notification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id          String   @id @default(cuid()) @map("_id")
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  variationId String?
+  variation   Variation? @relation(fields: [variationId], references: [id])
+  quantity    Int
+  unitPrice   Float
+  totalPrice  Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Delivery {
+  id              String         @id @default(cuid()) @map("_id")
+  orderId         String         @unique
+  order           Order          @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  userId          String
+  user            User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  // Delivery details
+  address         String
+  city            String
+  state           String
+  postalCode      String?
+  phone           String
+  deliveryNotes   String?
+
+  // Scheduling
+  scheduledDate   DateTime
+  scheduledTime   String         // e.g., "10:00 AM - 2:00 PM"
+  status          DeliveryStatus @default(SCHEDULED)
+
+  // Tracking
+  trackingNumber  String?        @unique
+  deliveredAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Referral {
+  id            String   @id @default(cuid()) @map("_id")
+  referrerId    String
+  referrer      User     @relation("ReferrerReferrals", fields: [referrerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  referredEmail String
+  code          String
+  rewardAmount  Float    @default(0)
+  isUsed        Boolean  @default(false)
+  usedAt        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reward {
+  id          String   @id @default(cuid()) @map("_id")
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  points      Int      @default(0)
+  description String
+  type        String   // e.g., "PURCHASE", "REFERRAL", "BONUS"
+  orderId     String?
+  order       Order?   @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ReferralSettings {
+  id                String   @id @default(cuid()) @map("_id")
+  referrerReward    Float    @default(100) // Amount referrer gets
+  refereeReward     Float    @default(50)  // Amount new user gets
+  isActive          Boolean  @default(true)
+  description       String?
+  validUntil        DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PointsSettings {
+  id                    String   @id @default(cuid()) @map("_id")
+  pointsPerNaira        Float    @default(0.1) // Points earned per ₦1 spent
+  nairaPerPoint         Float    @default(10)  // ₦ earned per point when converting
+  minimumPointsToConvert Int     @default(100) // Minimum points needed to convert
+  conversionCooldownDays Int     @default(30) // Days between conversions
+  isActive              Boolean  @default(true)
+  description           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  title     String
+  message   String
+  type      String   // e.g., "ORDER", "DELIVERY", "PROMOTION"
+  isRead    Boolean  @default(false)
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TransactionType {
+  CREDIT
+  DEBIT
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model WalletTransaction {
+  id          String            @id @default(cuid()) @map("_id")
+  userId      String
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        TransactionType
+  amount      Float
+  method      String // card, bank, mobile, etc.
+  description String
+  status      TransactionStatus @default(PENDING)
+  reference   String            @unique
+  orderId     String? // For purchases
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

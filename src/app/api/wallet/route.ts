@@ -1,0 +1,113 @@
+import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import { prisma } from "@/lib/prisma"
+
+// GET /api/wallet - Get user's wallet info
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      )
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        id: true,
+        walletBalance: true,
+        points: true,
+        referralCode: true,
+        _count: {
+          select: {
+            referrals: true
+          }
+        }
+      }
+    })
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json({
+      walletBalance: user.walletBalance,
+      points: user.points,
+      referralCode: user.referralCode,
+      referralCount: user._count.referrals
+    })
+  } catch (error) {
+    console.error("Error fetching wallet info:", error)
+    return NextResponse.json(
+      { error: "Failed to fetch wallet info" },
+      { status: 500 }
+    )
+  }
+}
+
+// POST /api/wallet/fund - Fund wallet (simulated payment)
+export async function POST(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      )
+    }
+
+    const body = await request.json()
+    const { amount } = body
+
+    if (!amount || amount <= 0) {
+      return NextResponse.json(
+        { error: "Valid amount is required" },
+        { status: 400 }
+      )
+    }
+
+    // In a real app, this would integrate with a payment provider
+    // For now, we'll simulate adding funds to the wallet
+    const user = await prisma.user.update({
+      where: { id: session.user.id },
+      data: {
+        walletBalance: {
+          increment: parseFloat(amount)
+        }
+      },
+      select: {
+        id: true,
+        walletBalance: true
+      }
+    })
+
+    // Create a reward record for the funding
+    await prisma.reward.create({
+      data: {
+        userId: session.user.id,
+        points: 0, // Could add bonus points for funding
+        description: `Wallet funded with ₦${amount}`,
+        type: "FUNDING"
+      }
+    })
+
+    return NextResponse.json({
+      message: "Wallet funded successfully",
+      walletBalance: user.walletBalance
+    })
+  } catch (error) {
+    console.error("Error funding wallet:", error)
+    return NextResponse.json(
+      { error: "Failed to fund wallet" },
+      { status: 500 }
+    )
+  }
+}

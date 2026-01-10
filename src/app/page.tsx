@@ -1,65 +1,1207 @@
-import Image from "next/image";
+"use client"
+
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { TestimonialsCarousel } from "@/components/testimonials-carousel"
+import { ModernNavigation } from "@/components/modern-navigation"
+import { ShoppingBag, Truck, Wallet, Gift, Star, Shield, Users, Heart, Leaf, Award, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+      {/* Modern Navigation */}
+      <ModernNavigation />
+
+      {/* Modern Hero Section */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 pt-16 lg:pt-20">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-orange-400/20 to-red-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-orange-100/30 to-yellow-100/30 rounded-full blur-3xl"></div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center lg:text-left"
+            >
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6"
+              >
+                <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+                Nigeria's #1 Agricultural Marketplace
+              </motion.div>
+
+              {/* Main Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6"
+              >
+                Fresh Food
+                <span className="block text-orange-600">Agricultural</span>
+                <span className="block text-gray-700 text-4xl lg:text-5xl font-semibold">Supplies at Your Doorstep</span>
+              </motion.h1>
+
+              {/* Subheadline */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="text-xl text-gray-600 mb-8 max-w-2xl"
+              >
+                Connect directly with farmers and suppliers. Get premium agricultural products,
+                fresh food supplies, and grocery essentials delivered fresh to your location.
+              </motion.p>
+
+              {/* Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="grid grid-cols-3 gap-8 mb-10 lg:justify-start justify-center"
+              >
+                <div className="text-center lg:text-left">
+                  <div className="text-3xl font-bold text-orange-600">500+</div>
+                  <div className="text-sm text-gray-600">Farmers</div>
+                </div>
+                <div className="text-center lg:text-left">
+                  <div className="text-3xl font-bold text-orange-500">10K+</div>
+                  <div className="text-sm text-gray-600">Products</div>
+                </div>
+                <div className="text-center lg:text-left">
+                  <div className="text-3xl font-bold text-orange-700">50K+</div>
+                  <div className="text-sm text-gray-600">Happy Customers</div>
+                </div>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center"
+              >
+                <Link href="/marketplace">
+                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                    <ShoppingBag className="mr-2 h-5 w-5" />
+                    Start Shopping
+                  </Button>
+                </Link>
+                <Link href="#about">
+                  <Button size="lg" variant="outline" className="border-2 border-gray-300 hover:border-orange-500 px-8 py-4 text-lg font-semibold hover:bg-orange-50 transition-all duration-300">
+                    Learn More
+                  </Button>
+                </Link>
+              </motion.div>
+
+              {/* Trust Indicators */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="flex items-center justify-center lg:justify-start mt-12 space-x-8"
+              >
+                <div className="flex items-center space-x-2">
+                  <Shield className="h-5 w-5 text-orange-600" />
+                  <span className="text-sm font-medium text-gray-700">Quality Assured</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Truck className="h-5 w-5 text-orange-500" />
+                  <span className="text-sm font-medium text-gray-700">Fast Delivery</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Heart className="h-5 w-5 text-orange-700" />
+                  <span className="text-sm font-medium text-gray-700">Fresh Products</span>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Visual */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="relative"
+            >
+              <div className="relative">
+                {/* Main Visual Card */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="bg-white rounded-3xl shadow-2xl p-8 max-w-lg mx-auto"
+                >
+                  <div className="text-center mb-6">
+                    <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <ShoppingBag className="h-10 w-10 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Fresh From Farm</h3>
+                    <p className="text-gray-600">Direct from local farmers to your table</p>
+                  </div>
+
+                  {/* Product Showcase */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <span className="text-orange-600 font-bold text-sm">🍅</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Organic Tomatoes</p>
+                        <p className="text-sm text-gray-600">Fresh & Juicy</p>
+                      </div>
+                    </div>
+                    <span className="font-bold text-orange-600">₦2,500</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <span className="text-yellow-600 font-bold text-sm">🌽</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Sweet Corn</p>
+                        <p className="text-sm text-gray-600">Farm Fresh</p>
+                      </div>
+                    </div>
+                    <span className="font-bold text-orange-600">₦1,800</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <span className="text-orange-600 font-bold text-sm">🥕</span>
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">Carrots</p>
+                        <p className="text-sm text-gray-600">Vitamin Rich</p>
+                      </div>
+                    </div>
+                    <span className="font-bold text-orange-600">₦1,200</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 text-center">
+                  <Link href="/marketplace">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                      Shop Now
+                    </Button>
+                  </Link>
+                  </div>
+                </motion.div>
+
+                {/* Floating Elements */}
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute -top-6 -right-6 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg"
+                >
+                  <span className="text-2xl">🌟</span>
+                </motion.div>
+
+                <motion.div
+                  animate={{
+                    y: [0, 10, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                  className="absolute -bottom-6 -left-6 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+                >
+                  <span className="text-xl">🥬</span>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </main>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="flex flex-col items-center space-y-2">
+            <span className="text-sm text-gray-500">Scroll to explore</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center"
+            >
+              <motion.div
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+              ></motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-24 bg-gradient-to-br from-white to-orange-50 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-orange-100/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-yellow-100/30 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+                <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+                About Marketdotcom
+              </div>
+
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                Who We
+                <span className="text-orange-600"> Are</span>
+              </h2>
+
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                Tired of crowded markets and overpriced foodstuff? At Marketdotcom, we're here to fix that.
+                We take the hassle out of market runs for everyday Nigerians, delivering affordable, quality food straight to your doorstep.
+              </p>
+
+              {/* CAC Verified Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center px-6 py-3 bg-white border-2 border-orange-200 rounded-xl shadow-lg"
+              >
+                <Shield className="h-6 w-6 text-orange-600 mr-3" />
+                <div>
+                  <div className="font-bold text-gray-900">CAC Verified</div>
+                  <div className="text-sm text-gray-600">Corporate Affairs Commission</div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Visual */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="grid grid-cols-2 gap-6">
+                {/* Large Card */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  className="col-span-2 bg-white p-8 rounded-2xl shadow-xl border border-orange-100"
+                >
+                  <div className="flex items-center space-x-4 mb-6">
+                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                      <Heart className="h-6 w-6 text-orange-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900">Our Mission</h3>
+                      <p className="text-gray-600">Making food shopping accessible to everyone</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    We're revolutionizing how Nigerians shop for food by combining technology with traditional market wisdom.
+                  </p>
+                </motion.div>
+
+                {/* Small Cards */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-6 rounded-xl shadow-lg border border-orange-100"
+                >
+                  <Award className="h-8 w-8 text-orange-600 mb-3" />
+                  <h4 className="font-bold text-gray-900 mb-2">Quality First</h4>
+                  <p className="text-sm text-gray-600">Only the freshest produce reaches your door</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  viewport={{ once: true }}
+                  className="bg-white p-6 rounded-xl shadow-lg border border-orange-100"
+                >
+                  <Users className="h-8 w-8 text-orange-600 mb-3" />
+                  <h4 className="font-bold text-gray-900 mb-2">Community</h4>
+                  <p className="text-sm text-gray-600">Building connections between farmers and families</p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Values Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              These principles guide everything we do at Marketdotcom
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Heart,
+                title: "We're Personal",
+                desc: "We treat you like family, crafting packages that fit your lifestyle and budget.",
+                color: "bg-red-50 border-red-200",
+                iconColor: "text-red-600"
+              },
+              {
+                icon: Award,
+                title: "We're Budget-Smart",
+                desc: "Our thrift plans help you save daily, so you can eat better without breaking the bank.",
+                color: "bg-green-50 border-green-200",
+                iconColor: "text-green-600"
+              },
+              {
+                icon: Shield,
+                title: "We're Reliable",
+                desc: "You can count on us for consistent quality and on-time delivery, every single time.",
+                color: "bg-blue-50 border-blue-200",
+                iconColor: "text-blue-600"
+              },
+              {
+                icon: Users,
+                title: "We're Community-Focused",
+                desc: "Join our vibrant community of smart shoppers changing how Nigeria buys food.",
+                color: "bg-purple-50 border-purple-200",
+                iconColor: "text-purple-600"
+              },
+              {
+                icon: Leaf,
+                title: "We're Purpose-Driven",
+                desc: "We're on a mission to end hunger, create jobs, and ensure fair prices for all Nigerians.",
+                color: "bg-orange-50 border-orange-200",
+                iconColor: "text-orange-600"
+              },
+              {
+                icon: Star,
+                title: "We're Verified",
+                desc: "CAC Verified and committed to transparency and trust in every transaction.",
+                color: "bg-yellow-50 border-yellow-200",
+                iconColor: "text-yellow-600"
+              }
+            ].map((value, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className={`group relative p-8 rounded-2xl border-2 ${value.color} hover:shadow-xl transition-all duration-300 hover:-translate-y-2`}
+              >
+                {/* Background Pattern */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/20 to-transparent rounded-full transform translate-x-10 -translate-y-10"></div>
+
+                <div className="relative z-10">
+                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6 ${value.iconColor.replace('text-', 'bg-').replace('-600', '-100')} group-hover:scale-110 transition-transform duration-300`}>
+                    <value.icon className={`h-7 w-7 ${value.iconColor}`} />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                    {value.title}
+                  </h3>
+
+                  <p className="text-gray-600 leading-relaxed">
+                    {value.desc}
+                  </p>
+                </div>
+
+                {/* Hover Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/0 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-white shadow-2xl">
+              <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
+              <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
+                Experience the difference that personal, reliable, and community-focused service makes in your daily life.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/marketplace">
+                  <Button size="lg" variant="secondary" className="bg-white text-orange-600 hover:bg-orange-50 font-semibold px-8">
+                    Explore Marketplace
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button size="lg" className="bg-orange-700 hover:bg-orange-800 text-white font-semibold px-8">
+                    Join Us Today
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-24 bg-gradient-to-br from-orange-50 via-white to-orange-25 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-10 w-64 h-64 bg-orange-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-80 h-80 bg-yellow-100/30 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <div className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+              Our Services
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              What We
+              <span className="text-orange-600"> Offer</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Comprehensive agricultural and food supply solutions tailored for modern living
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+            {[
+              {
+                icon: Truck,
+                title: "Personal Shopping Services",
+                desc: "We go to the market on your behalf—from all your local marketplace—sourcing clean, affordable, and quality foodstuff with expert selection and negotiation.",
+                features: ["Expert Market Navigation", "Quality Assurance", "Bulk Discounts", "Fresh Delivery"],
+                popular: false
+              },
+              {
+                icon: Wallet,
+                title: "Daily & Monthly Thrift Plans",
+                desc: "Save as low as ₦950 or ₦450 daily, and get a well-packed foodstuff bundle delivered monthly or for festive needs with flexible payment options.",
+                price: "₦950",
+                period: "/day",
+                features: ["Flexible Daily Plans", "Monthly Bundles", "Festive Packages", "Auto-Delivery"],
+                popular: true,
+                badge: "Most Popular"
+              },
+              {
+                icon: Gift,
+                title: "Custom Packages",
+                desc: "Specially designed packages for different needs: Student Survival Packs, NYSC Corp Essentials, Monthly Budget Boxes, Christmas Hampers.",
+                features: ["Tailored Solutions", "Budget-Friendly", "Seasonal Specials", "Corporate Packages"],
+                popular: false
+              }
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`relative group ${service.popular ? 'lg:scale-105 lg:-mt-4' : ''}`}
+              >
+                {service.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                      {service.badge}
+                    </div>
+                  </div>
+                )}
+
+                <div className={`bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 ${
+                  service.popular ? 'border-orange-200 shadow-orange-100' : 'border-gray-100'
+                } group-hover:border-orange-300 relative overflow-hidden`}>
+
+                  {/* Background Pattern */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-50 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
+
+                  {/* Icon */}
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 ${
+                    service.popular ? 'bg-orange-100' : 'bg-orange-50'
+                  }`}>
+                    <service.icon className={`h-8 w-8 ${
+                      service.popular ? 'text-orange-600' : 'text-orange-500'
+                    }`} />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
+
+                  {/* Price (if exists) */}
+                  {service.price && (
+                    <div className="flex items-baseline mb-4">
+                      <span className="text-4xl font-bold text-orange-600">{service.price}</span>
+                      <span className="text-gray-500 ml-1">{service.period}</span>
+                    </div>
+                  )}
+
+                  {/* Description */}
+                  <p className="text-gray-600 mb-6 leading-relaxed">{service.desc}</p>
+
+                  {/* Features */}
+                  <ul className="space-y-3 mb-8">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-gray-700">
+                        <div className="w-1.5 h-1.5 bg-orange-500 rounded-full mr-3 flex-shrink-0"></div>
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA Button */}
+                  <button className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
+                    service.popular
+                      ? 'bg-orange-600 hover:bg-orange-700 text-white shadow-lg hover:shadow-xl'
+                      : 'bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200'
+                  }`}>
+                    {service.popular ? 'Get Started' : 'Learn More'}
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto border border-orange-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Ready to Experience Better Shopping?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Join thousands of satisfied customers who have transformed their shopping experience with Marketdotcom
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/marketplace">
+                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-4">
+                    Browse Marketplace
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button size="lg" variant="outline" className="border-orange-300 text-orange-700 hover:bg-orange-50 px-8 py-4">
+                    Start Free Trial
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-24 bg-gradient-to-br from-gray-50 to-orange-50 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-40 h-40 bg-orange-200/30 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-20 right-20 w-60 h-60 bg-yellow-200/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+              Customer Stories
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              What Our Customers
+              <span className="text-orange-600"> Say</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Real experiences from real customers who have transformed their shopping journey
+            </p>
+          </motion.div>
+
+          {/* Testimonials Carousel */}
+          <TestimonialsCarousel />
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center mt-16"
+          >
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto border border-orange-100">
+              <div className="flex items-center justify-center space-x-8 mb-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600">370+</div>
+                  <div className="text-sm text-gray-600">Smart Shoppers</div>
+                </div>
+                <div className="w-px h-12 bg-gray-200"></div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600">4.9★</div>
+                  <div className="text-sm text-gray-600">Average Rating</div>
+                </div>
+                <div className="w-px h-12 bg-gray-200"></div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600">98%</div>
+                  <div className="text-sm text-gray-600">Satisfaction</div>
+                </div>
+              </div>
+              <p className="text-gray-700 font-medium mb-6">
+                Building a Better Food Future Together
+              </p>
+              <Link href="/marketplace">
+                <Button className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3">
+                  Join Our Community
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Vision Section */}
+      <section className="py-24 bg-gradient-to-br from-orange-50 via-orange-100 to-yellow-50 text-gray-900 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-200/30 via-orange-100/20 to-transparent"></div>
+          <div className="absolute top-20 right-20 w-64 h-64 bg-orange-300/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-yellow-200/15 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-orange-200/20 to-yellow-200/20 rounded-full blur-3xl"></div>
+        </div>
+
+        {/* Floating Icons */}
+        <div className="absolute inset-0 pointer-events-none">
+          <motion.div
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 5, 0]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-20 left-20 text-orange-200/30"
+          >
+            <Leaf className="h-16 w-16" />
+          </motion.div>
+          <motion.div
+            animate={{
+              y: [0, 20, 0],
+              rotate: [0, -5, 0]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-32 right-32 text-yellow-200/20"
+          >
+            <Award className="h-12 w-12" />
+          </motion.div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-orange-100 rounded-full text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-orange-300 rounded-full mr-2 animate-pulse"></span>
+              Our Vision
+            </div>
+
+            <h2 className="text-4xl sm:text-5xl font-bold mb-8 leading-tight">
+              Building a Better
+              <span className="block text-orange-600">Food Future</span>
+            </h2>
+
+            <p className="text-xl text-gray-700 mb-16 max-w-4xl mx-auto leading-relaxed">
+              At Marketdotcom, we're not just about shopping—we're on a mission to transform how food is produced,
+              distributed, and consumed in Nigeria. Every step we take builds toward a sustainable, accessible future for all.
+            </p>
+          </motion.div>
+
+          {/* Vision Cards Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {[
+              {
+                icon: Leaf,
+                title: "Sustainable Farmlands",
+                desc: "Partnering with local farmers to grow fresh, organic produce using eco-friendly methods",
+                color: "from-green-500 to-green-600",
+                bgColor: "bg-green-500/10",
+                stats: "500+ Farms"
+              },
+              {
+                icon: Award,
+                title: "Advanced Food Processing",
+                desc: "Building state-of-the-art facilities to process food efficiently with hygiene and quality standards",
+                color: "from-blue-500 to-blue-600",
+                bgColor: "bg-blue-500/10",
+                stats: "5 Facilities"
+              },
+              {
+                icon: Truck,
+                title: "Strategic Warehouses",
+                desc: "Creating nationwide network of warehouses to minimize waste and maximize freshness",
+                color: "from-purple-500 to-purple-600",
+                bgColor: "bg-purple-500/10",
+                stats: "12 Locations"
+              },
+              {
+                icon: Users,
+                title: "Job Creation",
+                desc: "Generating employment opportunities across farming, processing, and distribution sectors",
+                color: "from-orange-500 to-orange-600",
+                bgColor: "bg-orange-500/10",
+                stats: "2,000+ Jobs"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="group relative"
+              >
+                <div className={`bg-white/90 backdrop-blur-sm border border-orange-200/50 p-8 rounded-2xl h-full hover:bg-white hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105`}>
+                  {/* Icon */}
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 bg-gradient-to-r ${item.color} shadow-lg`}>
+                    <item.icon className="h-8 w-8 text-white" />
+                  </div>
+
+                  {/* Stats Badge */}
+                  <div className="inline-flex items-center px-3 py-1 bg-white/20 rounded-full text-sm font-medium text-orange-100 mb-4">
+                    {item.stats}
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-orange-600 transition-colors">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-gray-700 leading-relaxed">
+                    {item.desc}
+                  </p>
+
+                  {/* Hover Effect */}
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Impact Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="bg-white/95 backdrop-blur-sm border border-orange-200/50 rounded-3xl p-8 max-w-4xl mx-auto shadow-xl">
+              <h3 className="text-2xl font-bold mb-8 text-gray-900">Our Impact So Far</h3>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {[
+                  { number: "500+", label: "Partner Farmers", icon: Users },
+                  { number: "50K+", label: "Meals Served Daily", icon: Heart },
+                  { number: "98%", label: "Freshness Rate", icon: Shield },
+                  { number: "24/7", label: "Support Available", icon: Award }
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                  >
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-white/20 rounded-xl mb-3">
+                      <stat.icon className="h-6 w-6 text-orange-200" />
+                    </div>
+                    <div className="text-3xl font-bold text-orange-600 mb-1">{stat.number}</div>
+                    <div className="text-sm text-gray-600">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-orange-600 to-orange-700 text-white relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-500/20 to-transparent"></div>
+          <div className="absolute top-20 right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">How to Join the Movement</h2>
+            <p className="text-xl text-orange-100 mb-12 max-w-3xl mx-auto">
+              Start your journey to smarter shopping today and be part of Nigeria's food revolution
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/marketplace">
+                  <Button size="lg" className="bg-white text-orange-600 hover:bg-orange-50 text-lg px-10 py-4 font-semibold shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <ShoppingBag className="mr-3 h-5 w-5" />
+                    Start Your Order
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/auth/register">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-orange-600 text-lg px-10 py-4 font-semibold transition-all duration-300">
+                    <Award className="mr-3 h-5 w-5" />
+                    Join the Thrift Plan
+                  </Button>
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center items-center gap-8 text-orange-100">
+              <div className="flex items-center space-x-2">
+                <Shield className="h-5 w-5 text-orange-300" />
+                <span className="text-sm font-medium">Secure Payments</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Truck className="h-5 w-5 text-orange-300" />
+                <span className="text-sm font-medium">Fast Delivery</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Heart className="h-5 w-5 text-orange-300" />
+                <span className="text-sm font-medium">Quality Guaranteed</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Advanced Footer */}
+      <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-orange-600/5 to-transparent"></div>
+          <div className="absolute top-20 right-20 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-yellow-500/3 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10">
+          {/* Main Footer Content */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="grid lg:grid-cols-12 gap-12">
+              {/* Brand Section */}
+              <div className="lg:col-span-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center space-x-3 mb-6">
+                    <img
+                      src="/mrktdotcom-logo.png"
+                      alt="Marketdotcom Logo"
+                      className="h-24 w-24 object-contain"
+                    />
+                    <div>
+                      <span className="text-2xl font-bold">Marketdotcom</span>
+                      <div className="text-sm text-orange-400 font-medium">Smart Shopping Solutions</div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 mb-8 leading-relaxed max-w-sm">
+                    Connecting farmers, markets, and homes with affordable, quality food—one smart shop at a time.
+                  </p>
+
+                  {/* Social Links */}
+                  <div className="flex space-x-4">
+                    {[
+                      { name: "Facebook", icon: Facebook, href: "#" },
+                      { name: "Twitter", icon: Twitter, href: "#" },
+                      { name: "Instagram", icon: Instagram, href: "#" },
+                      { name: "LinkedIn", icon: Linkedin, href: "#" }
+                    ].map((social, index) => {
+                      const IconComponent = social.icon
+                      return (
+                        <motion.a
+                          key={social.name}
+                          href={social.href}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="bg-gray-800 hover:bg-orange-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 group"
+                          aria-label={social.name}
+                        >
+                          <IconComponent className="h-5 w-5 text-gray-400 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
+                        </motion.a>
+                      )
+                    })}
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Quick Links */}
+              <div className="lg:col-span-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-lg font-bold mb-6 relative">
+                    Quick Links
+                    <div className="absolute bottom-0 left-0 w-8 h-0.5 bg-orange-500"></div>
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      { name: "Marketplace", href: "/marketplace" },
+                      { name: "About Us", href: "#about" },
+                      { name: "Services", href: "#services" },
+                      { name: "Testimonials", href: "#testimonials" },
+                      { name: "Sign In", href: "/auth/login" }
+                    ].map((link) => (
+                      <li key={link.name}>
+                        {link.href.startsWith("#") ? (
+                          <button
+                            onClick={() => {
+                              const element = document.querySelector(link.href);
+                              if (element) element.scrollIntoView({ behavior: "smooth" });
+                            }}
+                            className="text-gray-400 hover:text-orange-400 transition-colors duration-300 hover:translate-x-1 transform"
+                          >
+                            {link.name}
+                          </button>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="text-gray-400 hover:text-orange-400 transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                          >
+                            {link.name}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </div>
+
+              {/* Services */}
+              <div className="lg:col-span-2">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-lg font-bold mb-6 relative">
+                    Our Services
+                    <div className="absolute bottom-0 left-0 w-8 h-0.5 bg-orange-500"></div>
+                  </h3>
+                  <ul className="space-y-3">
+                    {[
+                      { name: "Personal Shopping", href: "#" },
+                      { name: "Thrift Plans", href: "#" },
+                      { name: "Custom Packages", href: "#" },
+                      { name: "Express Delivery", href: "#" },
+                      { name: "Bulk Orders", href: "#" }
+                    ].map((service) => (
+                      <li key={service.name}>
+                        <a
+                          href={service.href}
+                          className="text-gray-400 hover:text-orange-400 transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                        >
+                          {service.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </div>
+
+              {/* Contact Info */}
+              <div className="lg:col-span-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-lg font-bold mb-6 relative">
+                    Get in Touch
+                    <div className="absolute bottom-0 left-0 w-8 h-0.5 bg-orange-500"></div>
+                  </h3>
+
+                  <div className="space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <div className="bg-orange-600/20 p-2 rounded-lg">
+                        <svg className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-gray-300 font-medium">Address</p>
+                        <p className="text-gray-400 text-sm">38 Agberu Rd, Off Alasoro Street,<br />Elebu Oja, Ibadan, Oyo State</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start space-x-3">
+                      <div className="bg-orange-600/20 p-2 rounded-lg">
+                        <svg className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-gray-300 font-medium">Phone</p>
+                        <p className="text-gray-400 text-sm">+234-903-181-2756</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start space-x-3">
+                      <div className="bg-orange-600/20 p-2 rounded-lg">
+                        <svg className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-gray-300 font-medium">Email</p>
+                        <p className="text-gray-400 text-sm">info@marketdotcom.ng</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Newsletter Signup */}
+                  <div className="mt-8 p-4 bg-gradient-to-r from-orange-600/10 to-orange-500/10 rounded-xl border border-orange-500/20">
+                    <p className="text-sm font-medium text-gray-300 mb-3">Stay Updated</p>
+                    <div className="flex gap-2">
+                      <input
+                        type="email"
+                        placeholder="Your email"
+                        className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
+                      />
+                      <button className="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg text-sm font-medium transition-colors duration-300">
+                        Subscribe
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 mb-4 md:mb-0">
+                  <p className="text-gray-400 text-sm">
+                    © 2025 - 2026 Marketdotcom. All rights reserved.
+                  </p>
+                  <div className="flex items-center space-x-4 text-xs text-gray-500">
+                    <a href="/privacy" className="hover:text-orange-400 transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="/terms" className="hover:text-orange-400 transition-colors">Terms of Service</a>
+                    <span>•</span>
+                    <a href="/cookies" className="hover:text-orange-400 transition-colors">Cookie Policy</a>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2 text-xs text-gray-500">
+                    <span>🇳🇬</span>
+                    <span>Nationwide Delivery</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-xs text-gray-500">
+                    <Shield className="h-3 w-3" />
+                    <span>SSL Secured</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }
