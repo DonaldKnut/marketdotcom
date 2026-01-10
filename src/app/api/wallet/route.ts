@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 
 // GET /api/wallet - Get user's wallet info
 export async function GET() {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session) {
@@ -55,6 +56,7 @@ export async function GET() {
 // POST /api/wallet/fund - Fund wallet (simulated payment)
 export async function POST(request: NextRequest) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session) {

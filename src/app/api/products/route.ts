@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 
 // GET /api/products - Get all products with filtering
 export async function GET(request: NextRequest) {
   try {
+    const prisma = await getPrismaClient()
     const { searchParams } = new URL(request.url)
     const categoryId = searchParams.get("categoryId")
     const search = searchParams.get("search")
@@ -50,6 +51,7 @@ export async function GET(request: NextRequest) {
 // POST /api/products - Create a new product (Admin only)
 export async function POST(request: NextRequest) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session || session.user.role !== "ADMIN") {

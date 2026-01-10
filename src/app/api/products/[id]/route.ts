@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 
 // GET /api/products/[id] - Get a specific product
 export async function GET(
@@ -9,6 +9,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const prisma = await getPrismaClient()
     const { id } = await params
     const product = await prisma.product.findUnique({
       where: { id },
@@ -41,6 +42,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session || session.user.role !== "ADMIN") {
@@ -107,6 +109,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session || session.user.role !== "ADMIN") {

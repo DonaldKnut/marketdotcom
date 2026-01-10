@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
+import { getPrismaClient } from "@/lib/prisma"
 import { sendOrderStatusUpdateEmail } from "@/lib/email"
 
 // GET /api/orders - Get orders (filtered by user role)
 export async function GET(request: NextRequest) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session) {
@@ -63,6 +64,7 @@ export async function GET(request: NextRequest) {
 // PUT /api/orders/[id]/status - Update order status (Admin only)
 export async function PUT(request: NextRequest) {
   try {
+    const prisma = await getPrismaClient()
     const session = await getServerSession(authOptions)
 
     if (!session || session.user.role !== "ADMIN") {
