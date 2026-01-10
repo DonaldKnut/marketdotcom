@@ -2,16 +2,21 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Enable experimental features for better Netlify compatibility
-  experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
-  },
+  experimental: {},
 
-  // Optimize for production builds
-  swcMinify: true,
+  // External packages for server components
+  serverExternalPackages: ['@prisma/client', 'bcryptjs'],
 
   // Configure images for Netlify
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     unoptimized: process.env.NODE_ENV === 'development',
   },
 
