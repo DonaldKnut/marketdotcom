@@ -2,7 +2,8 @@
   # Build command
   command = "npm run build"
 
-  # Remove publish directory - let @netlify/plugin-nextjs handle it automatically
+  # Force publish directory override - set to Next.js build output
+  publish = ".next"
 
 # Enable Netlify Next.js plugin for proper SSR and API routes support
 [[plugins]]
