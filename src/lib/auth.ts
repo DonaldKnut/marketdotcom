@@ -5,6 +5,7 @@ import { getPrismaClient } from "./prisma"
 
 export const authOptions: NextAuthOptions = {
   // Remove PrismaAdapter to avoid serverless issues - handle manually
+  debug: process.env.NODE_ENV === 'development',
   providers: [
     CredentialsProvider({
       name: "credentials",
