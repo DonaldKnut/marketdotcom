@@ -26,13 +26,17 @@ function LoginForm() {
     setLoading(true)
 
     try {
+      console.log("Attempting login for:", email)
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       })
 
+      console.log("SignIn result:", result)
+
       if (result?.error) {
+        console.log("SignIn error:", result.error)
         if (result.error.includes("Prisma") || result.error.includes("database")) {
           toast.error("Database connection error. Please try again later.", {
             duration: 6000,
@@ -54,8 +58,8 @@ function LoginForm() {
             }
           })
         } else {
-          toast.error(result.error || "Login failed. Please try again.", {
-            duration: 4000,
+          toast.error(`Login failed: ${result.error}`, {
+            duration: 6000,
             style: {
               background: 'rgba(239, 68, 68, 0.95)',
               backdropFilter: 'blur(10px)',
@@ -64,7 +68,8 @@ function LoginForm() {
             }
           })
         }
-      } else {
+      } else if (result?.ok) {
+        console.log("SignIn successful, redirecting...")
         toast.success("Login successful! Redirecting...", {
           duration: 2000,
           style: {
@@ -77,10 +82,34 @@ function LoginForm() {
 
         // Wait for session to be established before redirecting
         setTimeout(async () => {
-          // Force a session refresh to ensure authentication state is updated
-          await getSession()
-          router.push("/dashboard")
+          try {
+            const session = await getSession()
+            console.log("Session after login:", session)
+            router.push("/dashboard")
+          } catch (sessionError) {
+            console.error("Session error:", sessionError)
+            toast.error("Session establishment failed. Please try again.", {
+              duration: 4000,
+              style: {
+                background: 'rgba(239, 68, 68, 0.95)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+              }
+            })
+          }
         }, 1500)
+      } else {
+        console.log("SignIn result neither error nor ok:", result)
+        toast.error("Unexpected login result. Please try again.", {
+          duration: 4000,
+          style: {
+            background: 'rgba(239, 68, 68, 0.95)',
+            backdropFilter: 'blur(10px)',
+            color: 'white',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+          }
+        })
       }
     } catch (error: any) {
       console.error("Login error:", error)
@@ -96,7 +125,7 @@ function LoginForm() {
           }
         })
       } else {
-        toast.error("Network error. Please check your connection and try again.", {
+        toast.error(`Network error: ${error.message || 'Unknown error'}`, {
           duration: 4000,
           style: {
             background: 'rgba(239, 68, 68, 0.95)',
