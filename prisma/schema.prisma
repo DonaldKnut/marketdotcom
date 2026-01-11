@@ -67,6 +67,7 @@ model User {
   rewards       Reward[]
   notifications Notification[]
   walletTransactions WalletTransaction[]
+  payments      Payment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -170,6 +171,7 @@ model Order {
   delivery        Delivery?
   rewards         Reward[]
   notifications   Notification[]
+  payments        Payment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -309,6 +311,23 @@ model WalletTransaction {
   status      TransactionStatus @default(PENDING)
   reference   String            @unique
   orderId     String? // For purchases
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id              String   @id @default(cuid()) @map("_id")
+  orderId         String
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount          Float
+  currency        String   @default("NGN")
+  method          String   // PAYSTACK, STRIPE, etc.
+  status          String   // PENDING, COMPLETED, FAILED, REFUNDED
+  transactionId   String   @unique
+  gatewayResponse Json?    // Store the full gateway response
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
