@@ -4,6 +4,9 @@ import { authOptions } from "@/lib/auth"
 import { getPrismaClient } from "@/lib/prisma"
 import { sendOrderStatusUpdateEmail } from "@/lib/email"
 
+// Force dynamic rendering since this route uses getServerSession and headers
+export const dynamic = 'force-dynamic'
+
 // GET /api/orders - Get orders (filtered by user role)
 export async function GET(request: NextRequest) {
   try {

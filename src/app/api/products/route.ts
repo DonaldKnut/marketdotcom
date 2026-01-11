@@ -3,6 +3,9 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { getPrismaClient } from "@/lib/prisma"
 
+// Force dynamic rendering since this route uses getServerSession and headers
+export const dynamic = 'force-dynamic'
+
 // GET /api/products - Get all products with filtering
 export async function GET(request: NextRequest) {
   try {
