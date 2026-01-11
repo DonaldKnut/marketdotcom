@@ -56,6 +56,16 @@ export async function GET() {
       authStatus = `ERROR: ${error.message}`
     }
 
+    // Test session retrieval
+    let sessionStatus = 'NOT_TESTED'
+    try {
+      const { getServerSession } = await import('next-auth')
+      const session = await getServerSession(authOptions as any)
+      sessionStatus = session ? 'SESSION_FOUND' : 'NO_SESSION'
+    } catch (error: any) {
+      sessionStatus = `ERROR: ${error.message}`
+    }
+
     return NextResponse.json({
       ...envCheck,
       database: dbStatus,
