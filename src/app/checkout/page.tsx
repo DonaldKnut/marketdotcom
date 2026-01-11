@@ -255,7 +255,14 @@ export default function CheckoutPage() {
         amount: amount * 100, // Convert to kobo
         reference: paymentData.reference,
         onClose: function() {
-          toast.info('Payment cancelled')
+          toast('Payment cancelled', {
+            style: {
+              background: 'rgba(239, 68, 68, 0.95)',
+              backdropFilter: 'blur(10px)',
+              color: 'white',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+            }
+          })
         },
         onSuccess: function(transaction: any) {
           // Verify payment
