@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import toast from 'react-hot-toast'
 
 export interface CartItem {
   id: string
@@ -31,14 +32,36 @@ export const useCartStore = create<CartStore>()(
           const existingItem = state.items.find(item => item.id === newItem.id)
 
           if (existingItem) {
+            const newQuantity = existingItem.quantity + (newItem.quantity || 1)
+            toast.success(`Updated ${newItem.name} quantity to ${newQuantity} in cart`, {
+              duration: 3000,
+              style: {
+                background: 'rgba(34, 197, 94, 0.95)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(34, 197, 94, 0.3)',
+              },
+              icon: '🛒',
+            })
             return {
               items: state.items.map(item =>
                 item.id === newItem.id
-                  ? { ...item, quantity: item.quantity + (newItem.quantity || 1) }
+                  ? { ...item, quantity: newQuantity }
                   : item
               )
             }
           }
+
+          toast.success(`Added ${newItem.name} to cart`, {
+            duration: 3000,
+            style: {
+              background: 'rgba(34, 197, 94, 0.95)',
+              backdropFilter: 'blur(10px)',
+              color: 'white',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+            },
+            icon: '🛒',
+          })
 
           return {
             items: [...state.items, { ...newItem, quantity: newItem.quantity || 1 }]

@@ -74,10 +74,12 @@ function LoginForm() {
           }
         })
 
-        // Small delay to show success toast
-        setTimeout(() => {
+        // Wait for session to be established before redirecting
+        setTimeout(async () => {
+          // Force a session refresh to ensure authentication state is updated
+          await getSession()
           router.push("/dashboard")
-        }, 1000)
+        }, 1500)
       }
     } catch (error: any) {
       console.error("Login error:", error)
