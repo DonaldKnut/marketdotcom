@@ -243,19 +243,26 @@ export default function MarketplacePage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden mt-4 pt-4 border-t"
+              className="lg:hidden mt-4 pt-4 border-t bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-200"
             >
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category}
-                  </Button>
-                ))}
+              <div className="px-4 pb-4">
+                <h3 className="text-sm font-semibold text-gray-900 mb-3">Filter by Category</h3>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category)}
+                      className={selectedCategory === category
+                        ? "bg-orange-500 hover:bg-orange-600 text-white"
+                        : "bg-white hover:bg-gray-50 border-gray-300 text-gray-700"
+                      }
+                    >
+                      {category}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </motion.div>
           )}
