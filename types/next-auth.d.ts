@@ -25,3 +25,22 @@ declare module "next-auth/jwt" {
     role?: string
   }
 }
+
+// Paystack types
+declare global {
+  interface Window {
+    PaystackPop: {
+      setup: (config: {
+        key: string
+        email: string
+        amount: number
+        reference: string
+        onClose?: () => void
+        onSuccess?: (transaction: any) => void
+        callback?: (response: any) => void
+      }) => {
+        openIframe: () => void
+      }
+    }
+  }
+}

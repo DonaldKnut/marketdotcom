@@ -130,7 +130,7 @@ function LoginForm() {
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-12 text-base border-0"
+            className="h-12 text-base border-2 focus:border-orange-500"
             required
           />
         </div>
@@ -154,7 +154,7 @@ function LoginForm() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="h-12 text-base pr-12 border-0"
+              className="h-12 text-base pr-12 border-2 focus:border-orange-500"
               required
             />
             <button
@@ -192,13 +192,6 @@ function LoginForm() {
         </p>
       </div>
 
-      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <p className="text-sm text-gray-600 text-center">
-          <strong>Demo Credentials:</strong><br />
-          Email: demo@marketdotcom.com<br />
-          Password: demo123
-        </p>
-      </div>
     </AuthLayout>
   )
 }

@@ -23,8 +23,8 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center h-full"
           >
-            <div className="flex items-center space-x-3 mb-8">
-              <div className="p-2 bg-orange-600 rounded-lg overflow-hidden">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="p-2 rounded-lg overflow-hidden">
                 <img
                   src="/mrktdotcom-logo.png"
                   alt="Marketdotcom Logo"
@@ -34,15 +34,15 @@ export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
               <span className="text-3xl font-bold text-orange-400">Marketdotcom</span>
             </div>
 
-            <h1 className="text-4xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl font-bold mb-3 leading-tight">
               Shop Smarter, Save More
             </h1>
 
-            <p className="text-xl mb-8 text-white font-medium">
+            <p className="text-xl mb-4 text-white font-medium">
               Join thousands of Nigerians who have transformed their shopping experience with quality foodstuff and convenient delivery.
             </p>
 
-            <div className="space-y-4 mb-12">
+            <div className="space-y-3 mb-6">
               {[
                 { icon: Star, text: "Quality foodstuff, daily savings", color: "text-yellow-400" },
                 { icon: Truck, text: "Convenient doorstep delivery", color: "text-blue-400" },

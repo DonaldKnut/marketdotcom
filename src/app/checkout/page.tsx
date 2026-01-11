@@ -162,7 +162,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     setLoading(true)
     try {
-      // Create order in database
+      // Create order in database first
       const orderData = {
         items: items.map(item => ({
           productId: item.id,
@@ -191,12 +191,28 @@ export default function CheckoutPage() {
         body: JSON.stringify(orderData),
       })
 
-      if (response.ok) {
+      if (!response.ok) {
+        throw new Error('Failed to create order')
+      }
+
+      const orderResult = await response.json()
+      const orderId = orderResult.orderId
+
+      // Handle payment based on method
+      if (paymentMethod === 'wallet') {
+        // Wallet payment is already handled in order creation
         clearCart()
         setStep(3)
         toast.success('Order placed successfully!')
-      } else {
-        throw new Error('Failed to place order')
+      } else if (paymentMethod === 'paystack') {
+        // Initialize Paystack payment
+        await handlePaystackPayment(orderId, finalTotal)
+      } else if (paymentMethod === 'card') {
+        // For card payments, we could integrate a payment gateway here
+        // For now, treat as wallet payment
+        clearCart()
+        setStep(3)
+        toast.success('Order placed successfully!')
       }
     } catch (error) {
       console.error('Error placing order:', error)
@@ -204,6 +220,94 @@ export default function CheckoutPage() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handlePaystackPayment = async (orderId: string, amount: number) => {
+    try {
+      // Initialize payment with Paystack
+      const paymentResponse = await fetch('/api/payments/initialize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId,
+          amount,
+          paymentMethod: 'paystack'
+        }),
+      })
+
+      if (!paymentResponse.ok) {
+        throw new Error('Failed to initialize payment')
+      }
+
+      const paymentData = await paymentResponse.json()
+
+      // Load Paystack inline script if not already loaded
+      if (!window.PaystackPop) {
+        await loadPaystackScript()
+      }
+
+      // Open Paystack payment modal
+      const handler = window.PaystackPop.setup({
+        key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || 'pk_test_9071bb582b6486e980b86bce551587236426329a', // Fallback to provided test key
+        email: session?.user?.email || '',
+        amount: amount * 100, // Convert to kobo
+        reference: paymentData.reference,
+        onClose: function() {
+          toast.info('Payment cancelled')
+        },
+        onSuccess: function(transaction: any) {
+          // Verify payment
+          verifyPayment(transaction.reference)
+        }
+      })
+
+      handler.openIframe()
+    } catch (error) {
+      console.error('Error initializing Paystack payment:', error)
+      toast.error('Failed to initialize payment. Please try again.')
+    }
+  }
+
+  const verifyPayment = async (reference: string) => {
+    try {
+      const response = await fetch('/api/payments/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ reference }),
+      })
+
+      const result = await response.json()
+
+      if (result.success && result.paymentStatus === 'COMPLETED') {
+        clearCart()
+        setStep(3)
+        toast.success('Payment successful! Order placed.')
+      } else {
+        toast.error('Payment verification failed. Please contact support.')
+      }
+    } catch (error) {
+      console.error('Error verifying payment:', error)
+      toast.error('Payment verification failed. Please contact support.')
+    }
+  }
+
+  const loadPaystackScript = (): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (window.PaystackPop) {
+        resolve()
+        return
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://js.paystack.co/v1/inline.js'
+      script.onload = () => resolve()
+      script.onerror = () => reject(new Error('Failed to load Paystack script'))
+      document.head.appendChild(script)
+    })
   }
 
   if (!session) {

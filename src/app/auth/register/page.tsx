@@ -192,7 +192,7 @@ export default function RegisterPage() {
             placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
-            className="h-12 text-base border-0"
+            className="h-12 text-base border-2 focus:border-orange-500"
             required
           />
         </div>
@@ -208,7 +208,7 @@ export default function RegisterPage() {
             placeholder="Enter your email address"
             value={formData.email}
             onChange={handleChange}
-            className="h-12 text-base border-0"
+            className="h-12 text-base border-2 focus:border-orange-500"
             required
           />
         </div>
@@ -224,7 +224,7 @@ export default function RegisterPage() {
             placeholder="Enter your phone number"
             value={formData.phone}
             onChange={handleChange}
-            className="h-12 text-base border-0"
+            className="h-12 text-base border-2 focus:border-orange-500"
             required
           />
         </div>
@@ -241,7 +241,7 @@ export default function RegisterPage() {
               placeholder="Create a strong password"
               value={formData.password}
               onChange={handleChange}
-              className="h-12 text-base pr-12 border-0"
+              className="h-12 text-base pr-12 border-2 focus:border-orange-500"
               required
             />
             <button
@@ -304,7 +304,7 @@ export default function RegisterPage() {
               placeholder="Confirm your password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="h-12 text-base pr-12 border-0"
+              className="h-12 text-base pr-12 border-2 focus:border-orange-500"
               required
             />
             <button
