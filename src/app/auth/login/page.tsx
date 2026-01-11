@@ -20,6 +20,8 @@ function LoginForm() {
   const searchParams = useSearchParams()
   const message = searchParams.get("message")
   const error = searchParams.get("error")
+  const authError = searchParams.get("auth_error")
+  const authErrorDescription = searchParams.get("auth_error_description")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -68,8 +70,66 @@ function LoginForm() {
             }
           })
         }
+      } else if (result?.ok && result?.url) {
+        // Check if NextAuth redirected to error page
+        if (result.url.includes('/api/auth/error') || result.url.includes('error=')) {
+          console.log("SignIn redirected to error page:", result.url)
+          toast.error("Authentication failed. Please check your credentials and try again.", {
+            duration: 4000,
+            style: {
+              background: 'rgba(239, 68, 68, 0.95)',
+              backdropFilter: 'blur(10px)',
+              color: 'white',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+            }
+          })
+        } else {
+          console.log("SignIn successful, redirecting...")
+          toast.success("Login successful! Redirecting...", {
+            duration: 2000,
+            style: {
+              background: 'rgba(34, 197, 94, 0.95)',
+              backdropFilter: 'blur(10px)',
+              color: 'white',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+            }
+          })
+
+          // Wait for session to be established before redirecting
+          setTimeout(async () => {
+            try {
+              const session = await getSession()
+              console.log("Session after login:", session)
+              if (session?.user) {
+                router.push("/dashboard")
+              } else {
+                toast.error("Session not established. Please try logging in again.", {
+                  duration: 4000,
+                  style: {
+                    background: 'rgba(239, 68, 68, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    color: 'white',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                  }
+                })
+              }
+            } catch (sessionError) {
+              console.error("Session error:", sessionError)
+              toast.error("Session establishment failed. Please try again.", {
+                duration: 4000,
+                style: {
+                  background: 'rgba(239, 68, 68, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  color: 'white',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                }
+              })
+            }
+          }, 1500)
+        }
       } else if (result?.ok) {
-        console.log("SignIn successful, redirecting...")
+        // Simple success case without URL check
+        console.log("SignIn successful (no URL), redirecting...")
         toast.success("Login successful! Redirecting...", {
           duration: 2000,
           style: {
@@ -85,7 +145,19 @@ function LoginForm() {
           try {
             const session = await getSession()
             console.log("Session after login:", session)
-            router.push("/dashboard")
+            if (session?.user) {
+              router.push("/dashboard")
+            } else {
+              toast.error("Session not established. Please try logging in again.", {
+                duration: 4000,
+                style: {
+                  background: 'rgba(239, 68, 68, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  color: 'white',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                }
+              })
+            }
           } catch (sessionError) {
             console.error("Session error:", sessionError)
             toast.error("Session establishment failed. Please try again.", {
@@ -101,7 +173,7 @@ function LoginForm() {
         }, 1500)
       } else {
         console.log("SignIn result neither error nor ok:", result)
-        toast.error("Unexpected login result. Please try again.", {
+        toast.error("Authentication failed. Please check your credentials and try again.", {
           duration: 4000,
           style: {
             background: 'rgba(239, 68, 68, 0.95)',
@@ -156,6 +228,17 @@ function LoginForm() {
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg backdrop-blur-sm">
             <p className="text-red-800 text-sm">
               Authentication error: {error.replace(/_/g, ' ').toLowerCase()}
+            </p>
+          </div>
+        )}
+
+        {authError && (
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg backdrop-blur-sm">
+            <p className="text-red-800 text-sm">
+              Login failed: {authError.replace(/_/g, ' ').toLowerCase()}
+              {authErrorDescription && (
+                <span className="block mt-1 text-xs">{authErrorDescription}</span>
+              )}
             </p>
           </div>
         )}
