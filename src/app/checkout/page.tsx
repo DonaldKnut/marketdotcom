@@ -250,7 +250,7 @@ export default function CheckoutPage() {
 
       // Open Paystack payment modal
       const handler = window.PaystackPop.setup({
-        key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || 'pk_test_9071bb582b6486e980b86bce551587236426329a', // Fallback to provided test key
+        key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || 'pk_test_9071bb582b6486e980b86bce551587236426329a', // Your provided test key
         email: session?.user?.email || '',
         amount: amount * 100, // Convert to kobo
         reference: paymentData.reference,
