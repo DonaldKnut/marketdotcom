@@ -145,9 +145,9 @@ export default function MarketplacePage() {
               <img
                 src="/mrktdotcom-logo.png"
                 alt="Marketdotcom Logo"
-                className="h-24 w-24 object-contain"
+                className="h-8 w-8 sm:h-12 sm:w-12 object-contain"
               />
-              <span className="text-xl font-bold text-gray-900">Marketdotcom</span>
+              <span className="text-lg sm:text-xl font-bold text-gray-900">Marketplace</span>
             </Link>
 
             <div className="flex items-center space-x-4">
@@ -273,7 +273,7 @@ export default function MarketplacePage() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {filteredProducts.map((product, index) => (
             <motion.div
               key={product.id}

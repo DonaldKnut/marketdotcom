@@ -5,9 +5,6 @@ const nextConfig = {
     serverComponentsExternalPackages: ['@prisma/client', 'bcryptjs'],
   },
 
-  // External packages for server components
-  serverExternalPackages: ['@prisma/client', 'bcryptjs'],
-
   // Configure images for Netlify
   images: {
     remotePatterns: [

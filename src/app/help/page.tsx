@@ -50,6 +50,23 @@ interface ContactMethod {
   priority: number
 }
 
+interface Guide {
+  id: string
+  title: string
+  description: string
+  icon: any
+  steps: string[]
+  content: {
+    introduction: string
+    sections: Array<{
+      title: string
+      content: string
+      tips?: string[]
+    }>
+    conclusion: string
+  }
+}
+
 export default function HelpPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -1032,7 +1049,7 @@ Your order will be confirmed immediately and you'll receive delivery updates via
                         </div>
                         <Button
                           className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-                          onClick={() => setSelectedGuide(guide.id)}
+                          onClick={() => setSelectedGuide((guide as Guide).id)}
                         >
                           Read Guide
                           <ExternalLink className="h-4 w-4 ml-2" />

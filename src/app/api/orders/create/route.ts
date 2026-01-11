@@ -62,6 +62,9 @@ export async function POST(request: Request) {
       }))
     })
 
+    // Generate unique tracking number
+    const trackingNumber = `DEL${Date.now()}${Math.random().toString(36).substr(2, 6).toUpperCase()}`
+
     // Create delivery record
     await prisma.delivery.create({
       data: {
@@ -75,6 +78,7 @@ export async function POST(request: Request) {
         scheduledDate: new Date(deliveryDate),
         scheduledTime: deliveryTime,
         deliveryNotes,
+        trackingNumber,
         status: "SCHEDULED"
       }
     })
